@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Daniela's PhD</title>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico"/>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet"/>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .img-zoom-container {
+            position: relative;
+        }
+
+        .img-zoom-lens {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            /*set the size of the lens:*/
+            width: 80px;
+            height: 80px;
+        }
+
+        .img-zoom-result {
+            border: 1px solid #d4d4d4;
+            /*set the size of the result div:*/
+            width: 500px;
+            height: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+    </style>
+    <script>
+        function imageZoom(imgID, resultID) {
+            var img, lens, result, cx, cy;
+            img = document.getElementById(imgID);
+            result = document.getElementById(resultID);
+            /*create lens:*/
+            lens = document.createElement("DIV");
+            lens.setAttribute("class", "img-zoom-lens");
+            /*insert lens:*/
+            img.parentElement.insertBefore(lens, img);
+            /*calculate the ratio between result DIV and lens:*/
+            cx = result.offsetWidth / lens.offsetWidth;
+            cy = result.offsetHeight / lens.offsetHeight;
+            /*set background properties for the result DIV:*/
+            result.style.backgroundImage = "url('" + img.src + "')";
+            result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+            /*execute a function when someone moves the cursor over the image, or the lens:*/
+            lens.addEventListener("mousemove", moveLens);
+            img.addEventListener("mousemove", moveLens);
+            /*and also for touch screens:*/
+            lens.addEventListener("touchmove", moveLens);
+            img.addEventListener("touchmove", moveLens);
+
+            function moveLens(e) {
+                var pos, x, y;
+                /*prevent any other actions that may occur when moving over the image:*/
+                e.preventDefault();
+                /*get the cursor's x and y positions:*/
+                pos = getCursorPos(e);
+                /*calculate the position of the lens:*/
+                x = pos.x - (lens.offsetWidth / 2);
+                y = pos.y - (lens.offsetHeight / 2);
+                /*prevent the lens from being positioned outside the image:*/
+                if (x > img.width - lens.offsetWidth) {
+                    x = img.width - lens.offsetWidth;
+                }
+                if (x < 0) {
+                    x = 0;
+                }
+                if (y > img.height - lens.offsetHeight) {
+                    y = img.height - lens.offsetHeight;
+                }
+                if (y < 0) {
+                    y = 0;
+                }
+                /*set the position of the lens:*/
+                lens.style.left = x + "px";
+                lens.style.top = y + "px";
+                /*display what the lens "sees":*/
+                result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+            }
+
+            function getCursorPos(e) {
+                var a, x = 0, y = 0;
+                e = e || window.event;
+                /*get the x and y positions of the image:*/
+                a = img.getBoundingClientRect();
+                /*calculate the cursor's x and y coordinates, relative to the image:*/
+                x = e.pageX - a.left;
+                y = e.pageY - a.top;
+                /*consider any page scrolling:*/
+                x = x - window.pageXOffset;
+                y = y - window.pageYOffset;
+                return {x: x, y: y};
+            }
+        }
+    </script>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="../index.html">Daniela's PhD</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="../index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('../assets/img/larcc_2.jpeg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>November 2022 </h1>
+                    <h2 class="subheading">Year 3</h2>
+                    <span class="meta">
+                                Posted by
+                                <a href="#!">Daniela Rato</a>
+                                on December 9, 2022
+                            </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <h2 class="section-heading"> Building a ROS node for Human Pose Estimation using OpenPose as an
+                    off-the-shelf 2D algorithm</h2>
+                <p></p>
+
+                <p>The HPE node subscribes to image topics define by the user in the launch file. If the user whishes to
+                    use this algorithm in multiple cameras, it is advised to throttle the image topics to 5fps in the
+                    launch file (an example is already provided), or else the skeletons will appear slower than the
+                    source images.</p>
+
+                <p>This node publishes the skeleton in two formats: for visualization, an image is published with the
+                    skeleton drawn in it. The node also publishes a custom message with the keypoint information and the
+                    detection score for each keypoint.</p>
+
+                <p> The following image represents the HPE package. </p>
+
+                <p><a href="#!"><img class="img-fluid" width="560" src="../assets/img/hpe_node_graph.png"
+                                     alt="..."/></a></p>
+
+                <p>As mentioned before, custom messages were created to facilitate the comprehension of the skeleton and
+                    eventual subscription by other nodes.</p>
+                <ul>
+                    <li>Keypoint 2D custom message</li>
+                    <div class="box"
+                         style="font-family: Ubuntu; background-color: #21130d; color: #FEFBF6; text-align: left">
+                    <pre style="text-align: left; text-align: left; white-space: pre-line; margin-left: 10px">
+                        float32 x
+                        float32 y
+                        float32 score</pre>
+                    </div>
+                    <li>Person 2D custom message</li>
+                    <div class="box"
+                         style="font-family: Ubuntu; background-color: #21130d; color: #FEFBF6; text-align: left">
+                    <pre style="text-align: left; text-align: left; white-space: pre-line; margin-left: 10px">
+                        std_msgs/Header header
+                        keypoint2D[] keypoints # Array of keypoints</pre>
+                    </div>
+                    <li>Person 2D list custom message (not tested)</li>
+                    <div class="box"
+                         style="font-family: Ubuntu; background-color: #21130d; color: #FEFBF6; text-align: left">
+                    <pre style="text-align: left; text-align: left; white-space: pre-line; margin-left: 10px">
+                        std_msgs/Header header
+                        person2D[] persons</pre>
+                    </div>
+                </ul>
+
+                <p></p>
+
+                <p> The following video shows the node working with a recorded rosbag.</p>
+
+
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/UAGJGfvFLg0"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+
+                <p></p>
+
+                <h3>Future work and challenges</h3>
+
+                <p>The following tasks regarding this human pose estimation package is to test and make small
+                    modifications to a multi-person context. This also means that we must find the correspondence
+                    between each multiple people in each camera.</p>
+
+                <p>The following task will be to develop an algorithm to build and publish the 3D skeleton from the
+                    multiple 2D skeleton on each image. </p>
+
+                <p>There are some challenges to be addressed to accomplish these tasks, namely how to manage the CUDA
+                    device (or devices) to enable both the 2D and 3D HPE inference. Also, choosing an appropriate
+                    network that receives as input the 2D skeletons and camera extrinsics and outputs the 3D skeleton.
+                    Aditionally, to build the 3D skeleton, it is necessary to define a set of rules for when a person in
+                    partially or totally occluded in one or more views and how to make the correspondence between the
+                    same keypoint in different images.</p>
+
+
+                <p>You can find out more about the implementation here: <a href="https://github.com/danifpdra/hpe.git">
+                    https://github.com/danifpdra/hpe.git </a>.
+
+
+                <!--                <h4>Other tasks</h4>-->
+                <!--                <ul>-->
+                <!--                    <li>Review and submission of JMS article - first review</li>-->
+                <!--                    <li>Development of workplan for the 3 months in Barcelona</li>-->
+                <!--                    <li>Organization of new manuscript for depth calibration</li>-->
+                <!--                    <li>Writing the introduction</li>-->
+                <!--                    <li>State-of-the-art about RGB-D and hand-eye systems</li>-->
+                <!--                </ul>-->
+
+                <!--                <h4>Issues </h4>-->
+                <!--                &lt;!&ndash;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&ndash;&gt;-->
+                <!--                <p><a href="https://github.com/lardemua/larcc/issues/48">Hand eye dataset capturing - -->
+                <!--                    open </a>-->
+                <!--                </p>-->
+                <!--                <p><a href="https://github.com/lardemua/atom/issues/524">Hand-eye calibration not going as expected-->
+                <!--                    - open </a>-->
+                <!--                </p>-->
+                <!--                <p><a href="https://github.com/lardemua/larcc/issues/501">Possible depth labelling problem with robot - -->
+                <!--                    open</a>-->
+                <!--                </p>-->
+
+
+                <!--                https://youtube.com/shorts/3dKY3RwgptY?feature=share-->
+                <!--                <div class="my-4">-->
+
+                <!--                <h4>Issues </h4>-->
+                <!--                &lt;!&ndash;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&ndash;&gt;-->
+                <!--                <p><a href="https://github.com/lardemua/atom/issues/323">Add depth component to ATOM's framework-->
+                <!--                    - -->
+                <!--                    open </a>-->
+                <!--                </p>-->
+
+
+                <!--                </div>-->
+            </div>
+        </div>
+    </div>
+</article>
+<!-- Footer-->
+<footer class="border-top">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js/scripts.js"></script>
+</body>
+</html>

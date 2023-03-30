@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Daniela's PhD</title>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico"/>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet"/>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .img-zoom-container {
+            position: relative;
+        }
+
+        .img-zoom-lens {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            /*set the size of the lens:*/
+            width: 80px;
+            height: 80px;
+        }
+
+        .img-zoom-result {
+            border: 1px solid #d4d4d4;
+            /*set the size of the result div:*/
+            width: 500px;
+            height: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+    </style>
+    <script>
+        function imageZoom(imgID, resultID) {
+            var img, lens, result, cx, cy;
+            img = document.getElementById(imgID);
+            result = document.getElementById(resultID);
+            /*create lens:*/
+            lens = document.createElement("DIV");
+            lens.setAttribute("class", "img-zoom-lens");
+            /*insert lens:*/
+            img.parentElement.insertBefore(lens, img);
+            /*calculate the ratio between result DIV and lens:*/
+            cx = result.offsetWidth / lens.offsetWidth;
+            cy = result.offsetHeight / lens.offsetHeight;
+            /*set background properties for the result DIV:*/
+            result.style.backgroundImage = "url('" + img.src + "')";
+            result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+            /*execute a function when someone moves the cursor over the image, or the lens:*/
+            lens.addEventListener("mousemove", moveLens);
+            img.addEventListener("mousemove", moveLens);
+            /*and also for touch screens:*/
+            lens.addEventListener("touchmove", moveLens);
+            img.addEventListener("touchmove", moveLens);
+
+            function moveLens(e) {
+                var pos, x, y;
+                /*prevent any other actions that may occur when moving over the image:*/
+                e.preventDefault();
+                /*get the cursor's x and y positions:*/
+                pos = getCursorPos(e);
+                /*calculate the position of the lens:*/
+                x = pos.x - (lens.offsetWidth / 2);
+                y = pos.y - (lens.offsetHeight / 2);
+                /*prevent the lens from being positioned outside the image:*/
+                if (x > img.width - lens.offsetWidth) {
+                    x = img.width - lens.offsetWidth;
+                }
+                if (x < 0) {
+                    x = 0;
+                }
+                if (y > img.height - lens.offsetHeight) {
+                    y = img.height - lens.offsetHeight;
+                }
+                if (y < 0) {
+                    y = 0;
+                }
+                /*set the position of the lens:*/
+                lens.style.left = x + "px";
+                lens.style.top = y + "px";
+                /*display what the lens "sees":*/
+                result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+            }
+
+            function getCursorPos(e) {
+                var a, x = 0, y = 0;
+                e = e || window.event;
+                /*get the x and y positions of the image:*/
+                a = img.getBoundingClientRect();
+                /*calculate the cursor's x and y coordinates, relative to the image:*/
+                x = e.pageX - a.left;
+                y = e.pageY - a.top;
+                /*consider any page scrolling:*/
+                x = x - window.pageXOffset;
+                y = y - window.pageYOffset;
+                return {x: x, y: y};
+            }
+        }
+    </script>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="../index.html">Daniela's PhD</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="../index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('../assets/img/larcc_2.jpeg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>February 2023 </h1>
+                    <h2 class="subheading">Year 3</h2>
+                    <span class="meta">
+                                Posted by
+                                <a href="#!">Daniela Rato</a>
+                                on February 28, 2023
+                            </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <h2 class="section-heading"> Triangulation between pairs of images</h2>
+                <p></p>
+
+                <p>The goal is to triangulate each skeleton keypoint in the same timestamp to obtain a 3D skeleton for
+                    each pair of cameras. The following image shows the indexes of the keypoints in the current skeleton
+                    model used (BODY25).</p>
+
+                <a href="#!"><img class="img-fluid" width="200"
+                                  src="../assets/img/BODY-25-human-skeleton-estimation-model.png"
+                                  alt="..."/></a>
+
+                <h4> How does the triangulation works and what does it require?</h4>
+
+                <p>Prior to the triangulation it is mandatory to perform two other operations: intrisic and extrinsic
+                    calibration. The intrisic calibration gives us the camera parameters for each camera and the
+                    extrinsic calibration gives us the transformations between pairs that will be used to triangulate.
+                    The latter is obtained from reading the calibrated xacro file with the information of each link and
+                    recalculating the transformation between the two links involved. Then we can obtain the projection
+                    matrix using both the intrinsic and extrinsic matrixes. </p>
+
+                <p>Assuming a point in space, X, and that we observe this point from two cameras, and we know the
+                    point's pixel coordinates in each camera. Using the projection matrix, we know that</p>
+
+                <a href="#!"><img class="img-fluid" width="50%"
+                                  src="../assets/img/equation_camera.png"
+                                  alt="..."/></a>
+
+                The vectors are defined as followed
+
+                <a href="#!"><img class="img-fluid" width="200%"
+                                  src="../assets/img/equation_defs.png"
+                                  alt="..."/></a>
+
+                We know that the vector x&#8407;<sub>pix</sub> is parallel to the vector P&#8407;X&#8407;, and therefore
+                their cross product must be equal to zero. Knowing that we can develop this equation as follows:
+                <p></p>
+
+
+                <a href="#!"><img class="img-fluid" width="200%"
+                                  src="../assets/img/equation_parallels.png"
+                                  alt="..."/></a>
+
+
+                <p>By knowing that, in triangulation, the value o X must be the same in camera 1 and camera 2, we can
+                    solve the equation and obtain the value of X.</p>
+
+                <p>Check more details on the code here <a
+                        href="https://github.com/danifpdra/hpe/blob/master/scripts/triangulate.py">Here </a>
+                </p>
+
+                <h4> Problems </h4>
+
+                <p>As we can see in the following image, the keypoint indexes that are coming from the 2D openpose have
+                    vertically mirrored keypoint indexes. For example, the right shoulder has the index 5 in camera 3
+                    and index 2 in camera 4, which naturally will cause that the results of the triangulation are
+                    incorrect. </p>
+
+
+                <a href="#!"><img class="img-fluid-large" width="200%"
+                                  src="../assets/img/Wrong%20keypoint%20index!!.png"
+                                  alt="..."/></a>
+
+                <p>Another problem is how to identify badly identifies keypoints in the 2D images. For example:</p>
+
+                <a href="#!"><img class="img-fluid-large" width="200%"
+                                  src="../assets/img/hpe_wrong_1.png"
+                                  alt="..."/></a>
+
+                <a href="#!"><img class="img-fluid-large" width="200%"
+                                  src="../assets/img/hpe_wrong_2.png"
+                                  alt="..."/></a>
+
+                <!--                <h4>Other tasks</h4>-->
+                <!--                <ul>-->
+                <!--                    <li>Review and submission of JMS article - first review</li>-->
+                <!--                    <li>Development of workplan for the 3 months in Barcelona</li>-->
+                <!--                    <li>Organization of new manuscript for depth calibration</li>-->
+                <!--                    <li>Writing the introduction</li>-->
+                <!--                    <li>State-of-the-art about RGB-D and hand-eye systems</li>-->
+                <!--                </ul>-->
+
+                <!--                <h4>Issues </h4>-->
+                <!--                &lt;!&ndash;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&ndash;&gt;-->
+                <!--                <p><a href="https://github.com/lardemua/larcc/issues/48">Hand eye dataset capturing - -->
+                <!--                    open </a>-->
+                <!--                </p>-->
+                <!--                <p><a href="https://github.com/lardemua/atom/issues/524">Hand-eye calibration not going as expected-->
+                <!--                    - open </a>-->
+                <!--                </p>-->
+                <!--                <p><a href="https://github.com/lardemua/larcc/issues/501">Possible depth labelling problem with robot - -->
+                <!--                    open</a>-->
+                <!--                </p>-->
+
+
+                <!--                https://youtube.com/shorts/3dKY3RwgptY?feature=share-->
+                <!--                <div class="my-4">-->
+
+                <!--                <h4>Issues </h4>-->
+                <!--                &lt;!&ndash;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&ndash;&gt;-->
+                <!--                <p><a href="https://github.com/lardemua/atom/issues/323">Add depth component to ATOM's framework-->
+                <!--                    - -->
+                <!--                    open </a>-->
+                <!--                </p>-->
+
+
+                <!--                </div>-->
+            </div>
+        </div>
+    </div>
+</article>
+<!-- Footer-->
+<footer class="border-top">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Daniela's PhD</title>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico"/>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet"/>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .img-zoom-container {
+            position: relative;
+        }
+
+        .img-zoom-lens {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            /*set the size of the lens:*/
+            width: 80px;
+            height: 80px;
+        }
+
+        .img-zoom-result {
+            border: 1px solid #d4d4d4;
+            /*set the size of the result div:*/
+            width: 500px;
+            height: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+    </style>
+    <script>
+        function imageZoom(imgID, resultID) {
+            var img, lens, result, cx, cy;
+            img = document.getElementById(imgID);
+            result = document.getElementById(resultID);
+            /*create lens:*/
+            lens = document.createElement("DIV");
+            lens.setAttribute("class", "img-zoom-lens");
+            /*insert lens:*/
+            img.parentElement.insertBefore(lens, img);
+            /*calculate the ratio between result DIV and lens:*/
+            cx = result.offsetWidth / lens.offsetWidth;
+            cy = result.offsetHeight / lens.offsetHeight;
+            /*set background properties for the result DIV:*/
+            result.style.backgroundImage = "url('" + img.src + "')";
+            result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+            /*execute a function when someone moves the cursor over the image, or the lens:*/
+            lens.addEventListener("mousemove", moveLens);
+            img.addEventListener("mousemove", moveLens);
+            /*and also for touch screens:*/
+            lens.addEventListener("touchmove", moveLens);
+            img.addEventListener("touchmove", moveLens);
+
+            function moveLens(e) {
+                var pos, x, y;
+                /*prevent any other actions that may occur when moving over the image:*/
+                e.preventDefault();
+                /*get the cursor's x and y positions:*/
+                pos = getCursorPos(e);
+                /*calculate the position of the lens:*/
+                x = pos.x - (lens.offsetWidth / 2);
+                y = pos.y - (lens.offsetHeight / 2);
+                /*prevent the lens from being positioned outside the image:*/
+                if (x > img.width - lens.offsetWidth) {
+                    x = img.width - lens.offsetWidth;
+                }
+                if (x < 0) {
+                    x = 0;
+                }
+                if (y > img.height - lens.offsetHeight) {
+                    y = img.height - lens.offsetHeight;
+                }
+                if (y < 0) {
+                    y = 0;
+                }
+                /*set the position of the lens:*/
+                lens.style.left = x + "px";
+                lens.style.top = y + "px";
+                /*display what the lens "sees":*/
+                result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+            }
+
+            function getCursorPos(e) {
+                var a, x = 0, y = 0;
+                e = e || window.event;
+                /*get the x and y positions of the image:*/
+                a = img.getBoundingClientRect();
+                /*calculate the cursor's x and y coordinates, relative to the image:*/
+                x = e.pageX - a.left;
+                y = e.pageY - a.top;
+                /*consider any page scrolling:*/
+                x = x - window.pageXOffset;
+                y = y - window.pageYOffset;
+                return {x: x, y: y};
+            }
+        }
+    </script>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="../index.html">Daniela's PhD</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="../index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('../assets/img/larcc_2.jpeg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>March 2023 </h1>
+                    <h2 class="subheading">Year 3</h2>
+                    <span class="meta">
+                                Posted by
+                                <a href="#!">Daniela Rato</a>
+                                on March 28, 2023
+                            </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <h2 class="section-heading"> Optimization of 3D human skeletons using multi-view 2D skeletons</h2>
+                <p></p>
+
+                <h4> Part one: Fixing bugs on triangulation algorithm and adding more debug visualizations</h4>
+
+                <p> Since last month some bugs on the triangulation algorithm were fixed, for example, images were not
+                    synchronized between cameras at all times which was causing triangulation between different sets of
+                    images. Also, the visualization now includes the RGB image with the overlapped 2D skeleton that
+                    allows to confirm that the shoulders are inded being well detected by OpenPose.</p>
+
+                <p>
+                    <a href="#!"><img class="img-fluid-large" width="200%"
+                                      src="../assets/img/frame82.png"
+                                      alt="..."/></a>
+                    <a href="#!"><img class="img-fluid-large" width="200%"
+                                      src="../assets/img/frame90.png"
+                                      alt="..."/></a>
+                    <a href="#!"><img class="img-fluid-large" width="200%"
+                                      src="../assets/img/frame94.png"
+                                      alt="..."/></a>
+
+                </p>
+
+                <h4> Part two: Developing an optimization algorithm to determine the 3D pose of a human</h4>
+
+                <p>
+                    As discussed in the last meeting, an idea came to my mind about using optimization to calculate the
+                    correct position of the 3D skeleton using a multi-camera setup. In an initial brainstorm, the
+                    conclusion was that the optimization should consider two things: the projection of the 3D point in
+                    the current iteration to each of the cameras of the system and the size of each link in the human
+                    skeleton. Using the following image as an example, we know that the arm, that is the link between
+                    the joints 2 and 3, can't be 2 meters long. So, we must define limits for the size of each link, to
+                    also restrict the pose of the 3D skeleton at that moment. At this moment, this last step is still
+                    not implemented.
+                </p>
+
+
+                <a href="#!"><img class="img-fluid" width="200"
+                                  src="../assets/img/BODY-25-human-skeleton-estimation-model.png"
+                                  alt="..."/></a>
+
+                <p>
+                    As an additional step, we can also consider the n last frames (being n a number to define in the
+                    future) as a parameter that influences the optimization at that moment. That can be achieved by
+                    either considering, for each timestamp, the optimization of both the current timestamp and the last
+                    n timestamps, or by simply restricting the optimization of the current timestamp with the pose
+                    obtained in the last time stamp (which might be more efficient for real time).
+                </p>
+
+                <p>You can check the code for further details <a
+                        href="https://github.com/danifpdra/hpe/blob/master/scripts/optimization.py">here </a>
+                </p>
+
+
+                <h4> Part three: Testing with data from larcc</h4>
+                <p></p>
+
+
+                <h5>Optimization with one camera</h5>
+
+                <p>
+                    I started testing with the already recoded bagfiles from larcc. The results for the optimzation
+                    process using only one frame and one camera were as expected, as shown in the following video.
+
+                </p>
+                <iframe width="100%" height="450px" src="https://www.youtube.com/embed/ZhwEDHnLsaE"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+
+                <p></p>
+
+
+                <h5>Optimization with two cameras</h5>
+
+                <p>When adding the second camera as a part of the optimization process itself, the algorithm should
+                    return a set of X,Y,Z points (one for each keypoint) that matches the projections for both the
+                    cameras. The results were not correct like when optimizing just one camera, but it was not possible
+                    to confirm if the source of the problem was the algorithm or the data itself. There were several
+                    possible sources of error within the data like a bad intrinsic or extrinsic calibration. The
+                    extrinsic calibration data is a few months old and might now be entirely correct. Also, the error
+                    can come from the 2D detections. To eliminate these uncertainties, the methodology was tested with
+                    simulated data, which allows us to be sure of the extrinsic and intrinsic parameters. Results are
+                    demonstrated in the following section.
+                </p>
+
+                <iframe width="100%" height="450px" src="https://www.youtube.com/embed/XCSx1Iyva_U"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+
+
+                <p></p>
+
+                <h4> Part four: Testing with simulated data</h4>
+
+                <p>
+                    The simulated data was obtained with a simulated human in Gazebo (code provided by Manuel Gomes).
+                    First, I tested to see if OpenPose would be able to detect simulated humans as well, which it does,
+                    as shown in the following image.
+                </p>
+
+                <a href="#!"><img class="img-fluid"
+                                  src="../assets/img/23.png"
+                                  alt="..."/></a>
+
+                <p>
+                    The calibration with a single camera also works as expected. So I first recorded a new bagfile with
+                    a non-moving
+                    simulated human to ensure that possible unsynchronization wouldn't affect the results. The following
+                    video shows the obtained optimization with 2 cameras, which works as expected, as showed in the
+                    following video.
+                </p>
+
+                <iframe width="100%" height="450px" src="https://www.youtube.com/embed/-cKKEcX5MyM"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+
+                <p> I also tested with four cameras at the same time, and it also worked as expected, which proves that
+                    the algorithm is well-designed.</p>
+
+                <iframe width="100%" height="450px" src="https://www.youtube.com/embed/rahtakf5vKA"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+
+                <p></p>
+
+                <h4 style="color:red"> EDIT: 3D visualization</h4>
+                <p></p>
+
+                <iframe width="100%" height="450px"  src="https://www.youtube.com/embed/0n6im35MaqI"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                <p></p>
+
+                <h4>On-going tasks</h4>
+                <p></p>
+
+                <ul>
+                    <li>Adding the 3D visualization in the optimization algorithm (concluded in the meantime) </li>
+                    <li>Adding the link length restrictions to optimization</li>
+                    <li>Adding the time component to optimization</li>
+                    <li>Discuss the possibility of describing the skeleton with Denavit–Hartenberg parameters</li>
+                </ul>
+
+
+                <!--                <h4>Other tasks</h4>-->
+                <!--                <ul>-->
+                <!--                    <li>Review and submission of JMS article - first review</li>-->
+                <!--                    <li>Development of workplan for the 3 months in Barcelona</li>-->
+                <!--                    <li>Organization of new manuscript for depth calibration</li>-->
+                <!--                    <li>Writing the introduction</li>-->
+                <!--                    <li>State-of-the-art about RGB-D and hand-eye systems</li>-->
+                <!--                </ul>-->
+
+                <!--                <h4>Issues </h4>-->
+                <!--                &lt;!&ndash;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&ndash;&gt;-->
+                <!--                <p><a href="https://github.com/lardemua/larcc/issues/48">Hand eye dataset capturing - -->
+                <!--                    open </a>-->
+                <!--                </p>-->
+                <!--                <p><a href="https://github.com/lardemua/atom/issues/524">Hand-eye calibration not going as expected-->
+                <!--                    - open </a>-->
+                <!--                </p>-->
+                <!--                <p><a href="https://github.com/lardemua/larcc/issues/501">Possible depth labelling problem with robot - -->
+                <!--                    open</a>-->
+                <!--                </p>-->
+
+
+                <!--                https://youtube.com/shorts/3dKY3RwgptY?feature=share-->
+                <!--                <div class="my-4">-->
+
+                <!--                <h4>Issues </h4>-->
+                <!--                &lt;!&ndash;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&ndash;&gt;-->
+                <!--                <p><a href="https://github.com/lardemua/atom/issues/323">Add depth component to ATOM's framework-->
+                <!--                    - -->
+                <!--                    open </a>-->
+                <!--                </p>-->
+
+
+                <!--                </div>-->
+            </div>
+        </div>
+    </div>
+</article>
+<!-- Footer-->
+<footer class="border-top">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js/scripts.js"></script>
+</body>
+</html>
