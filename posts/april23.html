@@ -240,20 +240,44 @@
 
                 <h4> Comparison with other algorithms </h4>
 
-                <p>THIS POST IS STILL NOT FINISHED</p>
+                <p></p>
+
+                <p>To compare our method with different algorithms, we need to convert their output into a similar json
+                    file outputted by out method, to allow using out evaluation scripts. </p>
+
+                <p>Currently, I am trying to run the <a href="https://github.com/CMU-Perceptual-Computing-Lab/openpose">
+                    Openpose 3D</a>, <a href="https://github.com/JinluZhang1126/MixSTE">MixSTE</a>
+                    and <a href="https://github.com/Walter0807/MotionBERT">MotionBert</a> algorithms in our simulated
+                    datasets. These algorithms were selected in the paperwithcode website by checking the best 3D HPE
+                    algorithms, but I am unable to replicate them, I will move to different ones. </p>
+
+                <p>Currently, I've made some progress with implementing the MotionBert algorithm but the results were
+                    not as expected, as you can see in the next videos. You can read more details about the
+                    implementation in this <a href="https://github.com/danifpdra/hpe/issues/16">issue</a>. </p>
+
+                <iframe width="100%" height="450" src="https://www.youtube.com/embed/ZN_Qxa2_riM"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+
+                <iframe width="100%" height="450" src="https://www.youtube.com/embed/S3jXQDo6Jdk"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
 
 
-<!--                <h4>On-going tasks</h4>-->
-<!--                <p></p>-->
+                <h4>On-going tasks</h4>
+                <p></p>
 
-<!--                <ul>-->
-<!--                    <li>Adding the 3D visualization in the optimization algorithm (concluded in the meantime)</li>-->
-<!--                    <li>Adding the link length restrictions to optimization (optimization weights are very low when-->
-<!--                        compared to other algorithms - need fixing)-->
-<!--                    </li>-->
-<!--                    <li>Adding the time component to optimization</li>-->
-<!--                    <li>Discuss the possibility of describing the skeleton with Denavit–Hartenberg parameters</li>-->
-<!--                </ul>-->
+                <ul>
+                    <li>Adding the link length restrictions to optimization (optimization weights are very low when
+                        compared to other algorithms - need fixing)
+                    </li>
+                    <li>Calibrate an entire video and output a video of the 3D pose</li>
+                    <li>Discuss the possibility of describing the skeleton with Denavit–Hartenberg parameters</li>
+                    <li>Compare with different algorithms</li>
+                    <li>Improve first guess with last frame optimized skeleton in case of consecutive frames</li>
+                </ul>
 
 
                 <!--                <h4>Other tasks</h4>-->
