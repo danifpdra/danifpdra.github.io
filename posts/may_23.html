@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Daniela's PhD</title>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico"/>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet"/>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .img-zoom-container {
+            position: relative;
+        }
+
+        .img-zoom-lens {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            /*set the size of the lens:*/
+            width: 80px;
+            height: 80px;
+        }
+
+        .img-zoom-result {
+            border: 1px solid #d4d4d4;
+            /*set the size of the result div:*/
+            width: 500px;
+            height: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+    </style>
+    <script>
+        function imageZoom(imgID, resultID) {
+            var img, lens, result, cx, cy;
+            img = document.getElementById(imgID);
+            result = document.getElementById(resultID);
+            /*create lens:*/
+            lens = document.createElement("DIV");
+            lens.setAttribute("class", "img-zoom-lens");
+            /*insert lens:*/
+            img.parentElement.insertBefore(lens, img);
+            /*calculate the ratio between result DIV and lens:*/
+            cx = result.offsetWidth / lens.offsetWidth;
+            cy = result.offsetHeight / lens.offsetHeight;
+            /*set background properties for the result DIV:*/
+            result.style.backgroundImage = "url('" + img.src + "')";
+            result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+            /*execute a function when someone moves the cursor over the image, or the lens:*/
+            lens.addEventListener("mousemove", moveLens);
+            img.addEventListener("mousemove", moveLens);
+            /*and also for touch screens:*/
+            lens.addEventListener("touchmove", moveLens);
+            img.addEventListener("touchmove", moveLens);
+
+            function moveLens(e) {
+                var pos, x, y;
+                /*prevent any other actions that may occur when moving over the image:*/
+                e.preventDefault();
+                /*get the cursor's x and y positions:*/
+                pos = getCursorPos(e);
+                /*calculate the position of the lens:*/
+                x = pos.x - (lens.offsetWidth / 2);
+                y = pos.y - (lens.offsetHeight / 2);
+                /*prevent the lens from being positioned outside the image:*/
+                if (x > img.width - lens.offsetWidth) {
+                    x = img.width - lens.offsetWidth;
+                }
+                if (x < 0) {
+                    x = 0;
+                }
+                if (y > img.height - lens.offsetHeight) {
+                    y = img.height - lens.offsetHeight;
+                }
+                if (y < 0) {
+                    y = 0;
+                }
+                /*set the position of the lens:*/
+                lens.style.left = x + "px";
+                lens.style.top = y + "px";
+                /*display what the lens "sees":*/
+                result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+            }
+
+            function getCursorPos(e) {
+                var a, x = 0, y = 0;
+                e = e || window.event;
+                /*get the x and y positions of the image:*/
+                a = img.getBoundingClientRect();
+                /*calculate the cursor's x and y coordinates, relative to the image:*/
+                x = e.pageX - a.left;
+                y = e.pageY - a.top;
+                /*consider any page scrolling:*/
+                x = x - window.pageXOffset;
+                y = y - window.pageYOffset;
+                return {x: x, y: y};
+            }
+        }
+    </script>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="../index.html">Daniela's PhD</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="../index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('../assets/img/larcc_2.jpeg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>May 2023 </h1>
+                    <h2 class="subheading">Year 3</h2>
+                    <span class="meta">
+                                Posted by
+                                <a href="#!">Daniela Rato</a>
+                                on June 6, 2023
+                            </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <h2 class="section-heading"> Implementation of HPE optimization on Human 3.6M dataset</h2>
+                <p></p>
+
+                <p>Last month, the plan included to apply our synthetic datasets to other methodologies and compare the
+                    obtained values to ours. However, the implementation of other algorithms was proving to be very
+                    time-consuming and not producing usable data. So, considering this, the initial plan was changed to
+                    apply our algorithm to the Human 3.6M dataset instead and use the metrics already presented in other
+                    papers (MPJPE error) to evaluate our algorithm and therefore compare the results to other algorithms
+                    that used the same dataset.</p>
+
+                <h4>Human 3.6M dataset</h4>
+
+                <p>This dataset has is very generic and can be used in several fields of work, since it is divided into
+                    different actions, has 4 cameras with extrinsic and extrinsic values and has the ground truth for
+                    the 3D poses as well.</p>
+
+                <p>For the sake of this blog, I will only be using the action Directions-1 from sector 1. </p>
+
+                <p>Since this dataset is formatted differently, I tried to make the implementation as general as
+                    possible, and adapted my code to be able to read both dataset formats. I also created a script that
+                    converts the ground truth to a python dictionary, similar to the one created from the gazebo values
+                    in my own produced datasets.</p>
+
+
+                <h4>Evaluation metrics from my evaluation scripts</h4>
+
+                <p>Disclaimer: please be aware that these are preliminary results (that I just obtained) and I still
+                    didn't look for the sources of error or evaluated the obtained results.</p>
+
+                <h6>Detectors evaluation</h6>
+
+                <p>The image bellow shows an example of the detectors' evaluation visualization, where the squares are
+                    the ground truth points from human 3.6M and the crosses are the detected points by OpenPose. </p>
+
+                <p><a href="#!"><img class="img-fluid" width="560" src="../assets/img/human36m_detectors_example.png"
+                                     alt="..."/></a></p>
+
+                <p>The following tables show the average results per joint and per frame for an example of 10 frames
+                    (extended tables are available but very extensive for 4 cameras and 10 frames, so they are not
+                    presented here). These results are in pixels and the presented images have a resolution of
+                    1000x1000pix. </p>
+
+                <p><a href="#!"><img class="img-fluid" width="560" src="../assets/img/human36m_detectors_1.png"
+                                     alt="..."/></a></p>
+
+                <p><a href="#!"><img class="img-fluid" width="560" src="../assets/img/human36m_detectors_2.png"
+                                     alt="..."/></a></p>
+
+                <h6>3D evaluation</h6>
+
+                <p>The following image shows the 3D plot of the ground truth skeleton (black) and detected skeleton
+                    (colored) for the example of one frame. </p>
+
+                <a href="#!"><img class="img-fluid-large" width="200%"
+                                  src="../assets/img/human36m_3d_example.png"
+                                  alt="..."/></a>
+
+                <p>The next table shows the average errors per joint and per frame in meters for the 3D position of the
+                    detected skeleton when compared with the ground truth using for cameras. </p>
+
+                <p><a href="#!"><img class="img-fluid" width="560" src="../assets/img/human36m_3d_eval.png"
+                                     alt="..."/></a></p>
+
+
+                <h4>On-going tasks</h4>
+                <p></p>
+
+                <ul>
+                    <li>Adding the link length restrictions to optimization (optimization weights are very low when
+                        compared to other algorithms - need fixing)
+                    </li>
+                    <li>Calibrate an entire video and output a video of the 3D pose</li>
+                    <li>Discuss the possibility of describing the skeleton with Denavit–Hartenberg parameters</li>
+                    <li>Compare with different algorithms</li>
+                    <li>Improve first guess with last frame optimized skeleton in case of consecutive frames</li>
+                    <li>Implementation of human 3.6M</li>
+                    <li><b>Evaluation with state-of-the-art metrics (MPJPE)</b></li>
+                </ul>
+
+
+                <!--                <h4>Other tasks</h4>-->
+                <!--                <ul>-->
+                <!--                    <li>Review and submission of JMS article - first review</li>-->
+                <!--                    <li>Development of workplan for the 3 months in Barcelona</li>-->
+                <!--                    <li>Organization of new manuscript for depth calibration</li>-->
+                <!--                    <li>Writing the introduction</li>-->
+                <!--                    <li>State-of-the-art about RGB-D and hand-eye systems</li>-->
+                <!--                </ul>-->
+
+                <h4>Issues </h4>
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+                <ul>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/20">Optimize entire video and output result
+                        video -
+                        open </a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/21">Apply to Human 3.6M -
+                        open </a>
+                    </li>
+
+                    <li><a href="https://github.com/danifpdra/hpe/issues/7">Evaluation metrics -
+                        open </a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/8">Create more diverse datasets
+                        - open </a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/9">Find more algorithms for comparison -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/11">Add link length to objective function -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/12">Adding arguments to optimization script -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/14">Initialize with a more accurate first guess
+                        -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/15">Include evaluation tables during
+                        optimization
+                        enhancement-
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/16">Comparison algorithms: MotionBert -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/17">Comparison algorithms: MixSTE -
+                        open</a>
+                    </li>
+
+                    <li><a href="https://github.com/danifpdra/hpe/issues/18">Comparison algorithms: OpenPose 3D -
+                        open</a>
+                    </li>
+                </ul>
+
+
+                <!--                https://youtube.com/shorts/3dKY3RwgptY?feature=share-->
+                <!--                <div class="my-4">-->
+
+                <!--                <h4>Issues </h4>-->
+                <!--                &lt;!&ndash;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&ndash;&gt;-->
+                <!--                <p><a href="https://github.com/lardemua/atom/issues/323">Add depth component to ATOM's framework-->
+                <!--                    - -->
+                <!--                    open </a>-->
+                <!--                </p>-->
+
+
+                <!--                </div>-->
+            </div>
+        </div>
+    </div>
+</article>
+<!-- Footer-->
+<footer class="border-top">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js/scripts.js"></script>
+</body>
+</html>
