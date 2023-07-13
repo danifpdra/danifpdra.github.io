@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Daniela's PhD</title>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico"/>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet"/>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .img-zoom-container {
+            position: relative;
+        }
+
+        .img-zoom-lens {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            /*set the size of the lens:*/
+            width: 80px;
+            height: 80px;
+        }
+
+        .img-zoom-result {
+            border: 1px solid #d4d4d4;
+            /*set the size of the result div:*/
+            width: 500px;
+            height: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+    </style>
+    <script>
+        function imageZoom(imgID, resultID) {
+            var img, lens, result, cx, cy;
+            img = document.getElementById(imgID);
+            result = document.getElementById(resultID);
+            /*create lens:*/
+            lens = document.createElement("DIV");
+            lens.setAttribute("class", "img-zoom-lens");
+            /*insert lens:*/
+            img.parentElement.insertBefore(lens, img);
+            /*calculate the ratio between result DIV and lens:*/
+            cx = result.offsetWidth / lens.offsetWidth;
+            cy = result.offsetHeight / lens.offsetHeight;
+            /*set background properties for the result DIV:*/
+            result.style.backgroundImage = "url('" + img.src + "')";
+            result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+            /*execute a function when someone moves the cursor over the image, or the lens:*/
+            lens.addEventListener("mousemove", moveLens);
+            img.addEventListener("mousemove", moveLens);
+            /*and also for touch screens:*/
+            lens.addEventListener("touchmove", moveLens);
+            img.addEventListener("touchmove", moveLens);
+
+            function moveLens(e) {
+                var pos, x, y;
+                /*prevent any other actions that may occur when moving over the image:*/
+                e.preventDefault();
+                /*get the cursor's x and y positions:*/
+                pos = getCursorPos(e);
+                /*calculate the position of the lens:*/
+                x = pos.x - (lens.offsetWidth / 2);
+                y = pos.y - (lens.offsetHeight / 2);
+                /*prevent the lens from being positioned outside the image:*/
+                if (x > img.width - lens.offsetWidth) {
+                    x = img.width - lens.offsetWidth;
+                }
+                if (x < 0) {
+                    x = 0;
+                }
+                if (y > img.height - lens.offsetHeight) {
+                    y = img.height - lens.offsetHeight;
+                }
+                if (y < 0) {
+                    y = 0;
+                }
+                /*set the position of the lens:*/
+                lens.style.left = x + "px";
+                lens.style.top = y + "px";
+                /*display what the lens "sees":*/
+                result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+            }
+
+            function getCursorPos(e) {
+                var a, x = 0, y = 0;
+                e = e || window.event;
+                /*get the x and y positions of the image:*/
+                a = img.getBoundingClientRect();
+                /*calculate the cursor's x and y coordinates, relative to the image:*/
+                x = e.pageX - a.left;
+                y = e.pageY - a.top;
+                /*consider any page scrolling:*/
+                x = x - window.pageXOffset;
+                y = y - window.pageYOffset;
+                return {x: x, y: y};
+            }
+        }
+    </script>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="../index.html">Daniela's PhD</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="../index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('../assets/img/larcc_2.jpeg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>July 2023 </h1>
+                    <h2 class="subheading">Year 3</h2>
+                    <span class="meta">
+                                Posted by
+                                <a href="#!">Daniela Rato</a>
+                                on July 12, 2023
+                            </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <h2 class="section-heading"> Implementation of MediaPipe 2D detector and application to MPI-INF-3DHP
+                    dataset </h2>
+                <p></p>
+
+                <h4>MediaPipe as a 2D detector </h4>
+
+                <p>We came to the conclusion during the last meeting that the performance of OpenPose was not good
+                    enough to satisfy our needs and to create a robust 3D detection. For that reason, I added
+                    MediaPipe another option for the 2D detector. </p>
+
+                <p>MediaPipe proved to be much more efficient detecting 2D poses than OpenPose in the Human 3.6M
+                    dataset. As we can see in the following image, the colored crosses (projections of the 3D
+                    detections) match almost perfectly the squares (MediaPipe detections). </p>
+
+                <p><a href="#!"><img class="img-fluid" width="560" src="../assets/img/june/mediapipe_human36m.png"
+                                     alt="..."/></a></p>
+
+                <p>Although the good results that this presents, there is still a challenge in the quantitative
+                    evaluation process, because the MediaPipe skeleton (squares) is different from the ground truth
+                    skeleton (black crosses),
+                    creating a gap between the joints and making it impossible to truly evaluate the results. </p>
+
+                <p>The following table has the results of the evaluation using MediaPipe as the detector. As we can see,
+                    using all the joints to obtain the results, the average error is 4 cm and using only the best
+                    matching joints the error is still 3 cm. When comparing with other methodologies, this is not good
+                    enough, but I believe this higher error are caused by the differences in skeletons.</p>
+
+                <p><a href="#!"><img class="img-fluid" width="650" src="../assets/img/june/evaluation_mp_human36m.png"
+                                     alt="..."/></a></p>
+
+
+                <h4>Application to the MPI-INF-3DHP dataset </h4>
+
+                <p>I then decided that I would try to implement this algorithm in a different dataset. Another widely
+                    used dataset is the <a href="https:// vcai.mpi-inf.mpg.de/3dhp-dataset/>">MPI-INF-3DHP</a>, which is
+                    why I decided to use it in the hope that the ground truth skeleton would be similar to the ones we
+                    have. Also, because OpenPose offers a selection of different skeletons, and one of them is the MPI
+                    one.
+                </p>
+
+                <p>This dataset between 8 and 14 cameras, depending on the section of the dataset, with different
+                    actions and both 2D and 3D ground truth.</p>
+
+                <p>After creating all the necessary adaptations to run this dataset, I then extracted the 2D poses using
+                    the configured OpenPose for the MPI skeleton. The following image show that the performance of
+                    OpenPose using this skeleton in this dataset is even worse than the previous tests with half the
+                    arms not even being detected and the legs completely in the wrong place. I discarded OpenPose again
+                    as an option for 2D detections. </p>
+
+                <p><a href="#!"><img class="img-fluid" width="650" src="../assets/img/june/openpose_mpi_wrong.png"
+                                     alt="..."/></a></p>
+
+                <p>I decided to also try this with MediaPipe and obtained the same type of results as in Human 3.6M:
+                    accurate results but very displaced from the ground truth, as you can see in the following
+                    image. Again, this makes it very difficult to evaluate the accuracy of our 3D skeletons. </p>
+
+
+                <p><a href="#!"><img class="img-fluid" width="650" src="../assets/img/june/mpi_mediapipe_gt.png"
+                                     alt="..."/></a></p>
+
+
+                <h4>Proof of concept - Algorithm working with 2D ground truth </h4>
+
+                <p> To prove that the algorithm is working correctly, I used the 2D ground truth provided by the MPI
+                    dataset as a 2D detector. </p>
+
+                <p> As we can see in the following images, our algorithm's pose predictions match perfectly the 2D
+                    ground truth (squares) and the 3D ground truth (black= </p>
+
+
+                <p><a href="#!"><img class="img-fluid" width="560" src="../assets/img/june/proff_of_concept.png"
+                                     alt="..."/></a></p>
+
+                <p>The following tables show the errors for a subset of 25 frames using the 2D ground truth in the MPI
+                    dataset. These tables show us that indeed our methodology is doing what it's supposed to be doing,
+                    and the errors are approximately zero. </p>
+
+                <p><a href="#!"><img class="img-fluid" width="560" src="../assets/img/june/gt_avg_frame.png"
+                                     alt="..."/></a></p>
+
+
+                <p><a href="#!"><img class="img-fluid" width="560" src="../assets/img/june/gt_avg_joint.png"
+                                     alt="..."/></a></p>
+
+                <h4>How to solve the evaluation problem? </h4>
+
+                <p>As previously discussed, the gap between the 2D detectors' skeletons and the ground truth's skeleton
+                    creates a difficulty in evaluating the performance of our algorithm. </p>
+
+                <p>When I was developing the proof of concept with the 2D ground truth I had an idea: I could induce
+                    random errors in the 2D ground truth, as well as induce occlusions in some of the cameras. This
+                    would allow to have the exact same skeleton in all the phases of the process and also control the
+                    experiments by inducing different error percentages or creating different types of occlusions in
+                    different cameras. </p>
+
+
+                <h4>On-going tasks</h4>
+                <p></p>
+
+                <ul>
+                    <li>Adding the link length restrictions to optimization (optimization weights are very low when
+                        compared to other algorithms - needs fixing)
+                    </li>
+                    <li>Calibrate an entire video and output a video of the 3D pose</li>
+                    <li>Discuss the possibility of describing the skeleton with Denavit–Hartenberg parameters</li>
+                    <li>Compare with different algorithms</li>
+                    <li>Improve first guess with last frame optimized skeleton in case of consecutive frames</li>
+                    <li><b>Evaluation with state-of-the-art metrics (MPJPE)</b></li>
+                </ul>
+
+
+                <!--                <h4>Other tasks</h4>-->
+                <!--                <ul>-->
+                <!--                    <li>Review and submission of JMS article - first review</li>-->
+                <!--                    <li>Development of workplan for the 3 months in Barcelona</li>-->
+                <!--                    <li>Organization of new manuscript for depth calibration</li>-->
+                <!--                    <li>Writing the introduction</li>-->
+                <!--                    <li>State-of-the-art about RGB-D and hand-eye systems</li>-->
+                <!--                </ul>-->
+
+                <h4>Issues </h4>
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+                <ul>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/23">Apply to MPI-INF-3DHP Dataset  -
+                        open </a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/22">2D detections with MediaPipe -
+                        open </a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/20">Optimize entire video and output result
+                        video -
+                        open </a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/21">Apply to Human 3.6M -
+                        open </a>
+                    </li>
+
+                    <li><a href="https://github.com/danifpdra/hpe/issues/7">Evaluation metrics -
+                        open </a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/8">Create more diverse datasets
+                        - open </a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/9">Find more algorithms for comparison -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/11">Add link length to objective function -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/12">Adding arguments to optimization script -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/14">Initialize with a more accurate first guess
+                        -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/15">Include evaluation tables during
+                        optimization
+                        enhancement-
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/16">Comparison algorithms: MotionBert -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/17">Comparison algorithms: MixSTE -
+                        open</a>
+                    </li>
+
+                    <li><a href="https://github.com/danifpdra/hpe/issues/18">Comparison algorithms: OpenPose 3D -
+                        open</a>
+                    </li>
+                </ul>
+
+
+                <!--                https://youtube.com/shorts/3dKY3RwgptY?feature=share-->
+                <!--                <div class="my-4">-->
+
+                <!--                <h4>Issues </h4>-->
+                <!--                &lt;!&ndash;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&ndash;&gt;-->
+                <!--                <p><a href="https://github.com/lardemua/atom/issues/323">Add depth component to ATOM's framework-->
+                <!--                    - -->
+                <!--                    open </a>-->
+                <!--                </p>-->
+
+
+                <!--                </div>-->
+            </div>
+        </div>
+    </div>
+</article>
+<!-- Footer-->
+<footer class="border-top">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js/scripts.js"></script>
+</body>
+</html>
