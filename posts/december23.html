@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Daniela's PhD</title>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico"/>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet"/>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .img-zoom-container {
+            position: relative;
+        }
+
+        .img-zoom-lens {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            /*set the size of the lens:*/
+            width: 80px;
+            height: 80px;
+        }
+
+        .img-zoom-result {
+            border: 1px solid #d4d4d4;
+            /*set the size of the result div:*/
+            width: 500px;
+            height: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+    </style>
+    <script>
+        function imageZoom(imgID, resultID) {
+            var img, lens, result, cx, cy;
+            img = document.getElementById(imgID);
+            result = document.getElementById(resultID);
+            /*create lens:*/
+            lens = document.createElement("DIV");
+            lens.setAttribute("class", "img-zoom-lens");
+            /*insert lens:*/
+            img.parentElement.insertBefore(lens, img);
+            /*calculate the ratio between result DIV and lens:*/
+            cx = result.offsetWidth / lens.offsetWidth;
+            cy = result.offsetHeight / lens.offsetHeight;
+            /*set background properties for the result DIV:*/
+            result.style.backgroundImage = "url('" + img.src + "')";
+            result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+            /*execute a function when someone moves the cursor over the image, or the lens:*/
+            lens.addEventListener("mousemove", moveLens);
+            img.addEventListener("mousemove", moveLens);
+            /*and also for touch screens:*/
+            lens.addEventListener("touchmove", moveLens);
+            img.addEventListener("touchmove", moveLens);
+
+            function moveLens(e) {
+                var pos, x, y;
+                /*prevent any other actions that may occur when moving over the image:*/
+                e.preventDefault();
+                /*get the cursor's x and y positions:*/
+                pos = getCursorPos(e);
+                /*calculate the position of the lens:*/
+                x = pos.x - (lens.offsetWidth / 2);
+                y = pos.y - (lens.offsetHeight / 2);
+                /*prevent the lens from being positioned outside the image:*/
+                if (x > img.width - lens.offsetWidth) {
+                    x = img.width - lens.offsetWidth;
+                }
+                if (x < 0) {
+                    x = 0;
+                }
+                if (y > img.height - lens.offsetHeight) {
+                    y = img.height - lens.offsetHeight;
+                }
+                if (y < 0) {
+                    y = 0;
+                }
+                /*set the position of the lens:*/
+                lens.style.left = x + "px";
+                lens.style.top = y + "px";
+                /*display what the lens "sees":*/
+                result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+            }
+
+            function getCursorPos(e) {
+                var a, x = 0, y = 0;
+                e = e || window.event;
+                /*get the x and y positions of the image:*/
+                a = img.getBoundingClientRect();
+                /*calculate the cursor's x and y coordinates, relative to the image:*/
+                x = e.pageX - a.left;
+                y = e.pageY - a.top;
+                /*consider any page scrolling:*/
+                x = x - window.pageXOffset;
+                y = y - window.pageYOffset;
+                return {x: x, y: y};
+            }
+        }
+    </script>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="../index.html">Daniela's PhD</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="../index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('../assets/img/larcc_2.jpeg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>December 2023 </h1>
+                    <h2 class="subheading">Year 4</h2>
+                    <span class="meta">
+                                Posted by
+                                <a href="#!">Daniela Rato</a>
+                                on December 18, 2023
+                            </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <h2 class="section-heading"> Human Pose Estimation - Recap and Dataset Generation </h2>
+                <p></p>
+
+                <h2>Recap</h2>
+
+                <p>Human pose estimation is the process of determining the pose of humans in a scene, usually using a
+                    standardize skeleton with pre-defined joints. My algorithm calculates the position on each joint in
+                    the 3D space by optimizing the 3D coordinates of each joint. The optimization if a function of the
+                    difference between the detected 2D joint, and the projection of the 2D joint for each image. This
+                    process works for any number of cameras and 2D detectors. </p>
+
+                <p>Previously, I tested this algorithm with simulated data and real data, using the Human 3.6M and
+                    MPI-INF-3DHP datasets. I used both Mediapipe and OpenPose as 3D detectors. Results from Mediapipe
+                    were more promising that OpenPose's. Nevertheless, there was always a problem of evaluation when
+                    using those detectors, because the available skeleton formats don't match the skeleton formats
+                    used for the dataset's ground truth skeletons. </p>
+
+                <p>Using the following image as an example, where black crosses represent the dataset 2D groundtruth
+                    poses and the colored squares represent the 2D detections by Mediapipe, we can see that the joint
+                    correspondence from ground truth and detector is not correct. For example, MediaPipe "sees" the hip
+                    points much lower than where the groundtruth places them, and MediaPipe doesn't even have spine
+                    joints, while the groundtruth does. This discrepancy was the main concern from the beggining because
+                    it makes evaluation almost impossible. </p>
+
+
+                <p><a href="#!"><img class="img-fluid" width="650"
+                                     src="../assets/img/december/discrepancy_skeletons.png"
+                                     alt="..."/></a></p>
+
+                <p>From now on, I will use as an example the same 10 frames from the MPI-INF-3DHP dataset. </p>
+
+                <p>The following table shows the <b>MediaPipe detector 2D errors</b> in pixels for those 10 frames.
+                    Here, I choose
+                    just the better suited joints, that is, arms and legs. As we can see, errors for frame are above 25
+                    pixels and, even the best joints have almost 10 pixels of error. </p>
+
+                <p><a href="#!"><img class="img-fluid" width="650"
+                                     src="../assets/img/december/results_2d.png"
+                                     alt="..."/></a></p>
+
+                <p>As discussed earlier, these type of errors will be propagated into the 3D poses and, as we cannot
+                    truly compare the skeletons because they are of different formats, we have no way to determine is
+                    the HPE error comes from badly optimized skeletons or fixed error causes by this discrepancy.</p>
+
+                <p>The solution to this problem was to use the <b>groundtruth 2D poses</b> as the input for the
+                    optimization, which has the exact same skeleton as the 3D grountruth, and therefore allows to truly
+                    compare the obtained results. Obviously, I cannot truly evaluate the performance of the algorithm
+                    with a perfect input (as the 2D groundtruth is), so the idea was to create a <b>grountruth tampering
+                        tool</b> to generate comparable datasets with occlusions and errors. </p>
+
+                <h2>Dataset generator</h2>
+
+                <p>What I call a dataset generator is simply a tool that reads the 2D groundtruth for the request
+                    dataset and tampers the dataset to create joint errors and occlusions. This tool has two functioning
+                    modes: a manual occlusion generation tool, where you can manually eliminate from each image arms and
+                    legs; and a random generation functionality, where the user inputs the maximum pixel error and the
+                    maximum number of occlusions per image and occlusions and errors are generated accordingly. The user
+                    can also define the number of frames that the dataset will have and which cameras will be
+                    affected.</p>
+
+                <p>For the same 10 frames mentioned before, I use the dataset generator to create a new dataset where 30% of the joints have 10 pixels of error and a maximum of 3 occluded joints,
+                    where the obtained optimization errors are shown in the following image. For almost all the joints, the results were bellow 1 cm of error, which is very accurate.</p>
+
+                <p><a href="#!"><img class="img-fluid" width="650"
+                                     src="../assets/img/december/results_10j.png"
+                                     alt="..."/></a></p>
+
+                <p>For the same 10 joints, I generated another dataset where 30% of the joints have 25 pixels of error and a maximum of 3 occluded joints. The following image shows the obtained
+                    errors. For all the joints, the errors are around 1 cm, which is still very low. </p>
+
+                <p><a href="#!"><img class="img-fluid" width="650"
+                                     src="../assets/img/december/results_25px.png"
+                                     alt="..."/></a></p>
+
+                <p>For the same 10 joints, I generated another dataset where 50% of the joints have 10 pixels of error and a maximum of 3 occluded joints. The following image shows the obtained
+                    errors. </p>
+
+                <p><a href="#!"><img class="img-fluid" width="650"
+                                     src="../assets/img/december/results_10px_50perc.png"
+                                     alt="..."/></a></p>
+
+                <p>For the same 10 joints, I generated another dataset where 100% of the joints have 10 pixels of error and a maximum of 3 occluded joints. The following image shows the obtained
+                    errors. </p>
+
+                <p><a href="#!"><img class="img-fluid" width="650"
+                                     src="../assets/img/december/results_10px_100pc.png"
+                                     alt="..."/></a></p>
+
+                <p>In conclusion, this allows us to understand that algorithm is working correctly and perform an infinite number of experiments and even evalute how the increase in errors and
+                    occlusion really impacts the performance of the HPE algorithm. It also allows us to compare our results with other works that use the same datasets.</p>
+
+                <h4>Issues of the month</h4>
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+                <ul>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/31">Results for 10 frames -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/30">Link length residuals are hurting
+                        optimization - open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/29">How to name new 2d pose files with
+                        generated errors/occlusions? - open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/28">Generate random joint 2D detections errors
+                        and occlusions in 2D grountruth - open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/27">Optimize joint values instead of X,Y,Z
+                        coordinates - open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/26">Ground truth for some datasets has the axis
+                        switched. How to detected which axis is the floor to transform the points? -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/25">Visualization not showing occluded joints
+                        that are later detected by optimization -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/24">Create versions of 2D ground truth with
+                        noise and occlusions -
+                        open</a>
+                    </li>
+                </ul>
+
+
+                <!--                https://youtube.com/shorts/3dKY3RwgptY?feature=share-->
+                <!--                <div class="my-4">-->
+
+                <!--                <h4>Issues </h4>-->
+                <!--                &lt;!&ndash;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&ndash;&gt;-->
+                <!--                <p><a href="https://github.com/lardemua/atom/issues/323">Add depth component to ATOM's framework-->
+                <!--                    - -->
+                <!--                    open </a>-->
+                <!--                </p>-->
+
+
+                <!--                </div>-->
+            </div>
+        </div>
+    </div>
+</article>
+<!-- Footer-->
+<footer class="border-top">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js/scripts.js"></script>
+</body>
+</html>
