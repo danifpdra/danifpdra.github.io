@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Daniela's PhD</title>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico"/>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+          rel="stylesheet" type="text/css"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet"/>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .img-zoom-container {
+            position: relative;
+        }
+
+        .img-zoom-lens {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            /*set the size of the lens:*/
+            width: 80px;
+            height: 80px;
+        }
+
+        .img-zoom-result {
+            border: 1px solid #d4d4d4;
+            /*set the size of the result div:*/
+            width: 500px;
+            height: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+    </style>
+    <script>
+        function imageZoom(imgID, resultID) {
+            var img, lens, result, cx, cy;
+            img = document.getElementById(imgID);
+            result = document.getElementById(resultID);
+            /*create lens:*/
+            lens = document.createElement("DIV");
+            lens.setAttribute("class", "img-zoom-lens");
+            /*insert lens:*/
+            img.parentElement.insertBefore(lens, img);
+            /*calculate the ratio between result DIV and lens:*/
+            cx = result.offsetWidth / lens.offsetWidth;
+            cy = result.offsetHeight / lens.offsetHeight;
+            /*set background properties for the result DIV:*/
+            result.style.backgroundImage = "url('" + img.src + "')";
+            result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+            /*execute a function when someone moves the cursor over the image, or the lens:*/
+            lens.addEventListener("mousemove", moveLens);
+            img.addEventListener("mousemove", moveLens);
+            /*and also for touch screens:*/
+            lens.addEventListener("touchmove", moveLens);
+            img.addEventListener("touchmove", moveLens);
+
+            function moveLens(e) {
+                var pos, x, y;
+                /*prevent any other actions that may occur when moving over the image:*/
+                e.preventDefault();
+                /*get the cursor's x and y positions:*/
+                pos = getCursorPos(e);
+                /*calculate the position of the lens:*/
+                x = pos.x - (lens.offsetWidth / 2);
+                y = pos.y - (lens.offsetHeight / 2);
+                /*prevent the lens from being positioned outside the image:*/
+                if (x > img.width - lens.offsetWidth) {
+                    x = img.width - lens.offsetWidth;
+                }
+                if (x < 0) {
+                    x = 0;
+                }
+                if (y > img.height - lens.offsetHeight) {
+                    y = img.height - lens.offsetHeight;
+                }
+                if (y < 0) {
+                    y = 0;
+                }
+                /*set the position of the lens:*/
+                lens.style.left = x + "px";
+                lens.style.top = y + "px";
+                /*display what the lens "sees":*/
+                result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+            }
+
+            function getCursorPos(e) {
+                var a, x = 0, y = 0;
+                e = e || window.event;
+                /*get the x and y positions of the image:*/
+                a = img.getBoundingClientRect();
+                /*calculate the cursor's x and y coordinates, relative to the image:*/
+                x = e.pageX - a.left;
+                y = e.pageY - a.top;
+                /*consider any page scrolling:*/
+                x = x - window.pageXOffset;
+                y = y - window.pageYOffset;
+                return {x: x, y: y};
+            }
+        }
+    </script>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="../index.html">Daniela's PhD</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="../index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('../assets/img/larcc_2.jpeg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>December 2024 </h1>
+                    <h2 class="subheading">Year 4</h2>
+                    <span class="meta">
+                                Posted by
+                                <a href="#!">Daniela Rato</a>
+                                on January 30, 2024
+                            </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <h2 class="section-heading"> Human Pose Estimation - Tests, Occlusions and New Evaluation Metrics </h2>
+                <p></p>
+
+                <h2>Link length residuals - Study, Debugging and Exploring Different Versions</h2>
+
+                <p>Previously I had come to the conclusion that, when activated, the link length residuals were hurting optimization instead of helping. The idea of these residuals in the objetive
+                    function was that, we know that from frame to frame, the lengths of the several links in the human body, example arm, forearm, leg, thigh, etc., have the exact same length for the
+                    same human. Therefore, all the frames should have the same length for the same link. This was implemented by calculating, for each link, the average of the link length for all
+                    frames and then for each frame calculating the absolute difference from that average, which would be the residual (meaning that we had one residual per link, per frame). </p>
+
+                <p>The problem with having one residual per frame is that it was causing too much discrepancy in link lengths between different frames and the link length values did not converge.
+                    Also, the fact that we start the optimization with an initial guess of (0,0,0) for all joints causes that the initial link length is 0 and all the residuals are 0, so actually in
+                    the first iterations the algorithm has a much harder time evolving because it has to move from an ideal value of 0. A first solution for this was to have standardized measurements
+                    for each link which were used instead of the average link length to calculate the difference for each residual, and only move to the real average values once the link lengths had
+                    converged to a value close to that standardized measurement. The problem with this solution was that the standardized value chosen had a big influence in the failure or success of
+                    optimization and people have different sizes, so an ideal set of standardized values for one person would not work for a different person. </p>
+
+                <p>After realising this, I didn't think this was solution was good and I had a different idea: to use just one residual for each link instead of one for each link and for each
+                    frame. For this, I would calculate the average of the link length for all frames and then calculate either the standard deviation or the variance and use that value as a residual.
+                    This also reduces the optimization problem because, let's say we have a skeleton with 22 links and an optimization problem with 10 frames. We now have 22 link length residuals
+                    instead of the 220 residuals we previously had. </p>
+
+                <p>After testing both the variance and standard deviation options, I concluded that the standard deviation works better because the variance values are very high, which would cause
+                    that the link length residuals would have much bigger impact on optimization when compared with the residuals from the other optimization methods (back projection compared with 2D
+                    detections and frame to frame residuals).</p>
+
+                <p>To help debugging I also created a new functionality (which is activated when the -db flag (debug) is used) that prints a table with link length ground truth measurement, current
+                    predict measurement in that iteration, absolute error in relation to the ground truth and standard deviation. An example of this table is presented on the table bellow. </p>
+
+                <p><a href="#!"><img class="img-fluid" width="650"
+                                     src="../assets/img/january/link_length_175_ocl.png"
+                                     alt="..."/></a></p>
+
+                <p></p>
+
+                <h2>Back projection Error Tool</h2>
+
+                <p>In the previous PhD meeting, it was suggested that a new evaluation tool was created. This tool projects the optimized 3D skeletons to the images of each camera and calculate
+                    the distance between the projected point and the ground truth point. The output is individual error values for each joint, camera and frame if using the -ext flag (extended) or
+                    summary tables presenting the average errors for each camera and frame in one table, the average errors for each camera and joint in other table and finally the average error for
+                    each camera. This tool can also show the images with the ground truth and the projected points when using the -si flag (show images), where squares represent the ground truth and
+                    crosses the back projected points, as seen bellow.</p>
+
+                <div class="row">
+                    <div class="column">
+                        <img src="../assets/img/january/frame178_0.png" alt="Snow" style="width:100%">
+                    </div>
+                    <div class="column">
+                        <img src="../assets/img/january/frame178_4.png" alt="forest" style="width:100%">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <img src="../assets/img/january/frame178_5.png" alt="Snow" style="width:100%">
+                    </div>
+                    <div class="column">
+                        <img src="../assets/img/january/frame178_8.png" alt="forest" style="width:100%">
+                    </div>
+                </div>
+
+                <p></p>
+
+                <h2>Including 3D Error in Optimization Script and Generation of Error vs Iteration Plot</h2>
+
+                <p>To better understand the evolution of the skeleton values during optimization, I added a new debug tool (which only shows if the -db flag is activated) that for each iteration
+                    prints a table with the 3D error values for each frame and joint in millimeters. After the optimization ends, the systems shows an image with the plots of iteration vs error for
+                    each joint, and one plot for the average error. </p>
+
+                <p>The following images show an example of the table printed during optimization and the plots given at the end. </p>
+
+
+                <p></p>
+
+                <h2>Experiments</h2>
+
+                <p>For the experiments, a set of 11 frames with dynamic arm movement was chosen, to avoid false good results due to similarities in adjacent frames. The group of frames can be
+                    previewed in the image bellow.</p>
+
+
+                <p><a href="#!"><img class="img-fluid" width="650"
+                                     src="../assets/img/january/frames175.png"
+                                     alt="..."/></a></p>
+
+                <h3>Experiment 1 - Occluded joint</h3>
+
+
+                <p>In the first experiment, I wanted to test the robustness of the algorithm to occlusions. For this, I generated a dataset where the <b>5 middle frames</b> have the <b>left elbow</b>
+                    joint, LElbow occluded for <b>all cameras</b>. </p>
+
+                <p>The following tables show the obtained results. </p>
+
+                <p>Regarding the link length values, all the links were predicted with submillimetric accuracy except the links that have the LElbow joint which have errors of 1cm. </p>
+
+                <p></p>
+
+
+                <p>
+                <figure href="#!"><img class="img-fluid" width="650"
+                                       src="../assets/img/january/link_length_175_ocl.png"
+                                       alt="..."/>
+                    <figcaption>Final link length values in millimeters.</figcaption>
+                </figure>
+                </p>
+
+                <p>The following table shows the 3D rmse errors for the last iteration. The graphic bellow shows the evolution of this error with the iteration, which allows us to see that the error
+                    for all joints is converging to zero. </p>
+
+                <p>
+                <figure href="#!"><img class="img-fluid-large" width="220%"
+                                       src="../assets/img/january/final_errors_175_ocl.png"
+                                       alt="..."/>
+                    <figcaption>Final 3D rmse errors in millimeters.</figcaption>
+                </figure>
+                </p>
+
+                <p>
+                <figure href="#!"><img class="img-fluid-large" width="200%"
+                                       src="../assets/img/january/plot_175_ocl.png"
+                                       alt="..."/>
+                    <figcaption>Plot of the evolution of 3D rmse error in millimeters during optimization.</figcaption>
+                </figure>
+                </p>
+
+                <p>Although these results are good, I was left thinking why do the first frames have such high errors when compared to other frames, when these are the ones that have no occlusions.
+                    To analise this, I decided to output a table with the <b>ground truth link length</b> per frame. We can see that although most link have the exact same length for all frames, that
+                    is
+                    not true for all the links, existing significant discrepancies in the links highlighted in yellow in the table bellow. My guess is that this discrepancy combined with the link
+                    length residuals that "force" all frames to have the same length for a certain link, is causing some of the joints that belong to links with different link lengths to be displaced.
+                    Although this seems to be an error with the ground truth, because obviously bones are rigid and don't change their length and this is a 3D measurement so different perspectives
+                    shouldn't alter the ground truth link length. </p>
+
+                <p>
+                <figure href="#!"><img class="img-fluid-large" width="220%"
+                                       src="../assets/img/january/gt_link_length.png"
+                                       alt="..."/>
+                    <figcaption>Ground truth link lengths per frame.</figcaption>
+                </figure>
+                </p>
+
+                <p>Finally, the following table shows the average back projection errors for this calibration, with errors around 2px for images with 1000x1000px of resolution. </p>
+
+
+                <p>
+                <figure href="#!"><img class="img-fluid" width="650"
+                                       src="../assets/img/january/back_prok_175_ocl.png"
+
+                                       alt="..."/>
+                    <figcaption>Back projection errors in pixels.</figcaption>
+                </figure>
+                </p>
+
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+
+                <h3>Experiment 2 - Random occlusions with induced errors</h3>
+
+
+                <p>In the second experiment, I wanted to test how the algorithm wide skeleton movements with random errors and occlusions. I generated a dataset where 75% of the joints have a 7px
+                    error and there are 2 random occlusions. </p>
+
+
+                <p>The following tables show the obtained results. </p>
+
+                <p>Regarding the link length values, all the links were predicted with accuracies bellow 5mm. </p>
+
+                <p>
+                <figure><img class="img-fluid" width="650"
+                             src="../assets/img/january/link_length_175_random.png"
+                             alt="..."/>
+                    <figcaption>Final link length values in millimeters.</figcaption>
+                </figure>
+
+                </p>
+
+                <p>The following table shows the 3D rmse errors for the last iteration. The graphic bellow shows the evolution of this error with the iteration, which allows us to see that the error
+                    for all joints is converging to zero. Again, I think the same problem occurred regarding link length values. </p>
+
+                <p>
+                <figure width="200%"><img class="img-fluid-large" width="220%"
+                                          src="../assets/img/january/final_errors_175_random.png"
+                                          alt="..."/>
+                    <figcaption>Final 3D rmse errors in millimeters.</figcaption>
+                </figure>
+                </p>
+
+                <p>
+                <figure width="200%"><img class="img-fluid-large" width="200%"
+                                          src="../assets/img/january/Errors_175.png"
+                                          alt="..."/>
+                    <figcaption>Plot of the evolution of 3D rmse error in millimeters during optimization.</figcaption>
+                </figure>
+                </p>
+
+                <p>Finally, the following table shows the average back projection errors for this calibration, with errors around 3px for images with 1000x1000px of resolution. </p>
+
+
+                <p>
+                <figure><img class="img-fluid" width="650"
+                             src="../assets/img/january/backprojections175.png"
+                             alt="..."/>
+                    <figcaption>Back projection errors in pixels.</figcaption>
+                </figure>
+                </p>
+
+
+                <h4>Issues of the month</h4>
+                <!--%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+                <ul>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/37">Evaluate impact of standard deviation vs variance in the link length optimization residuals -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/36">Prediction of a joint occluded in all images -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/35">Table comparison with other algorithms -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/34">Add function to objetive function that calculates the errors (in meters) for each joint and saves it in a data structure -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/33">New evaluation tool that outputs initial 2D pixels errors for each camera and final back projected errors for each camera -
+                        closed</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/32">Constrict dataset generator to a more realist set of joint occlusions -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/31">Results for 10 frames -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/30">Link length residuals are hurting
+                        optimization - open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/28">Generate random joint 2D detections errors
+                        and occlusions in 2D grountruth - open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/27">Optimize joint values instead of X,Y,Z
+                        coordinates - open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/26">Ground truth for some datasets has the axis
+                        switched. How to detected which axis is the floor to transform the points? -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/25">Visualization not showing occluded joints
+                        that are later detected by optimization -
+                        open</a>
+                    </li>
+                    <li><a href="https://github.com/danifpdra/hpe/issues/24">Create versions of 2D ground truth with
+                        noise and occlusions -
+                        open</a>
+                    </li>
+                </ul>
+
+
+                <!--                https://youtube.com/shorts/3dKY3RwgptY?feature=share-->
+                <!--                <div class="my-4">-->
+
+                <!--                <h4>Issues </h4>-->
+                <!--                &lt;!&ndash;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&ndash;&gt;-->
+                <!--                <p><a href="https://github.com/lardemua/atom/issues/323">Add depth component to ATOM's framework-->
+                <!--                    - -->
+                <!--                    open </a>-->
+                <!--                </p>-->
+
+
+                <!--                </div>-->
+            </div>
+        </div>
+    </div>
+</article>
+<!-- Footer-->
+<footer class="border-top">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="../js/scripts.js"></script>
+</body>
+</html>
